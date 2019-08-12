@@ -7,6 +7,7 @@ import java.util.Random;
 public class Population implements Serializable {
 
     private ArrayList<Individual> individuals = new ArrayList();
+    String name;
     public int nrIndividuals;
     public double popFitness;
     static int generation = 0;
@@ -38,6 +39,7 @@ public class Population implements Serializable {
 
     public void debbuging(){
         System.out.println("-------------------------------------------------------------------------");
+        System.out.println("Population: " + this.name);
         System.out.println("Generation : " + Population.generation);
         //System.out.println("Population size: " + this.popSize());
         System.out.println("Best specimen: " + selectBestSpecimen().getFitness());
@@ -53,13 +55,19 @@ public class Population implements Serializable {
         this.individuals.addAll(newPop.individuals);
     }
 
+    Population(ArrayList<Individual> indivizi, String name) {
+        this.individuals = indivizi;
+        this.name = name;
+    }
+
     public void addIndividual(Individual individual){
         individuals.add(individual);
         nrIndividuals += 1;
     }
 
-    public Population() {
+    public Population(String name) {
         nrIndividuals = 0;
+        this.name = name;
     }
 
     public int RouletteWheelSelect(){
@@ -91,6 +99,9 @@ public class Population implements Serializable {
         return individuals.get(RouletteWheelSelect());
     }
 
+    public String getName(){
+        return this.name;
+    }
 
 
     public ArrayList<Individual>  Crossover(Individual parent1, Individual parent2, Integer nrGenes){
@@ -145,6 +156,9 @@ public class Population implements Serializable {
         return this.individuals.get(index);
     }
 
+    public ArrayList<Individual> getIndividuals(){
+        return new ArrayList<>(this.individuals);
+    }
     public int popSize(){
         return this.individuals.size();
     }
