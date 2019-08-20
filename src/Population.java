@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +52,18 @@ public class Population implements Serializable {
         calculatePopFitness();
         System.out.println("Population fitness: " + this.popFitness);
         System.out.println("-------------------------------------------------------------------------");
+    }
+
+    public void logToFile(){
+        BufferedWriter scriere;
+        try{
+            scriere = new BufferedWriter(new FileWriter(new File("algoritm2.txt"), true));
+            scriere.newLine();
+            scriere.write(Population.generation + " " + this.popFitness + " " + selectBestSpecimen().getFitness() + " " + selectWorstSpecimen().getFitness());
+            scriere.close();
+        }catch(Exception e){
+            System.out.println("Eroare scriere fisier: " + e);
+        }
     }
 
     Population(Population newPop) {

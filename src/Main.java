@@ -1,4 +1,6 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 public class Main {
@@ -99,6 +101,7 @@ public class Main {
                 }
                 if(optimaCounter == 10){
                     System.out.println("10 generations had the same fitness! Local optima found after " + Population.generation + " generations!");
+                    mainPopulation.logToFile();
                     break;
                 }
                 lastPopFitness = mainPopulation.getPopFitness();
